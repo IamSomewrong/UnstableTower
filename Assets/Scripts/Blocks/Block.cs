@@ -7,10 +7,14 @@ public class Block : MonoBehaviour
     public BlockObject BlockObject;
 
     private Rigidbody2D _rb;
-    void Start()
+
+    private void Awake()
     {
         _rb = GetComponent<Rigidbody2D>();
-
+    }
+    public void UpdateObject(BlockObject? blockObject)
+    {
+        BlockObject = blockObject;
         PhysicsMaterial2D pm = new PhysicsMaterial2D();
 
         if (BlockObject == null)
