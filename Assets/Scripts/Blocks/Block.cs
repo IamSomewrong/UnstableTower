@@ -4,8 +4,7 @@ using UnityEngine;
 
 public class Block : MonoBehaviour
 {
-    [SerializeField]
-    private BlockObject _blockObject;
+    public BlockObject BlockObject;
 
     private Rigidbody2D _rb;
     void Start()
@@ -14,12 +13,14 @@ public class Block : MonoBehaviour
 
         PhysicsMaterial2D pm = new PhysicsMaterial2D();
 
-        if (_blockObject == null)
-            _blockObject = ScriptableObject.CreateInstance<BlockObject>();
+        if (BlockObject == null)
+            BlockObject = ScriptableObject.CreateInstance<BlockObject>();
 
-        pm.friction = _blockObject.Friction;
-        pm.bounciness = _blockObject.Bounciness;
+        pm.friction = BlockObject.Friction;
+        pm.bounciness = BlockObject.Bounciness;
         _rb.sharedMaterial = pm;
-        _rb.mass = _blockObject.Weight;
+        _rb.mass = BlockObject.Weight;
+
+        gameObject.transform.localScale *= BlockObject.Scale;
     }
 }

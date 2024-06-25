@@ -17,7 +17,7 @@ public class Draggable : MonoBehaviour
     {
         Vector3 mousePosition = Camera.main.ScreenToWorldPoint(Input.mousePosition);
         _targetJoint.enabled = true;
-        _targetJoint.anchor = Camera.main.ScreenToWorldPoint(Input.mousePosition) - transform.position;
+        _targetJoint.anchor = (Camera.main.ScreenToWorldPoint(Input.mousePosition) - transform.position) / transform.localScale.x;
     }
 
     private void OnMouseDrag()
