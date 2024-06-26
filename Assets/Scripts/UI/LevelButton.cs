@@ -16,6 +16,6 @@ public class LevelButton : MonoBehaviour
     public void ChangeScene()
     {
         Global.Instance.LevelObject = LevelObject;
-        SceneManager.LoadScene(1, LoadSceneMode.Single);
+        SceneManager.LoadScene(2, LoadSceneMode.Single);
     }
 }
