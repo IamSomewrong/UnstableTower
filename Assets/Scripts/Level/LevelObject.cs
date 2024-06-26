@@ -8,4 +8,6 @@ public class LevelObject : ScriptableObject
 {
     public List<BlockObject> Blocks;
     public float Height;
+
+    public bool Passed;
 }

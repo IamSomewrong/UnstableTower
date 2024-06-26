@@ -7,10 +7,24 @@ public class Block : MonoBehaviour
     public BlockObject BlockObject;
 
     private Rigidbody2D _rb;
+    private Camera _camera;
 
     private void Awake()
     {
         _rb = GetComponent<Rigidbody2D>();
+        _camera = Camera.main;
+    }
+
+    private void FixedUpdate()
+    {
+        float bottomBound = _camera.transform.position.y -  _camera.orthographicSize * _camera.aspect;
+        if (transform.position.y <= bottomBound)
+        {
+            Vector3 cameraPosition = _camera.transform.position;
+            _rb.velocity = Vector2.zero;
+            _rb.position = cameraPosition;
+        }
+            
     }
     public void UpdateObject(BlockObject? blockObject)
     {

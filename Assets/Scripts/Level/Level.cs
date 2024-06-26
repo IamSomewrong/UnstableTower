@@ -13,11 +13,15 @@ public class Level : MonoBehaviour
 
     private List<GameObject> _blocks = new List<GameObject>();
     private GameObject _timer;
+    private GameObject _winnerPanel;
+   
 
     private void Start()
     {
-        LevelObject = Global.LevelObject;
+        LevelObject = Global.Instance.LevelObject;
         _timer = GameObject.FindGameObjectWithTag("Timer");
+        _winnerPanel = GameObject.FindGameObjectWithTag("WinnerPanel");
+        _winnerPanel.SetActive(false);
 
         Vector3[] positions = new Vector3[2] { new Vector3(-10, LevelObject.Height, 0), new Vector3(10, LevelObject.Height, 0) };
         GameObject.FindGameObjectWithTag("Line").GetComponent<LineRenderer>().SetPositions(positions);
@@ -37,12 +41,17 @@ public class Level : MonoBehaviour
             if (block.transform.position.y + block.transform.localScale.y / 2 >= LevelObject.Height &&
                 Camera.main.ScreenToWorldPoint(Input.mousePosition).y < LevelObject.Height)
             {
-                Global.Timer -= Time.deltaTime;
-                _timer.GetComponent<TMP_Text>().text = Global.Timer.ToString();
+                Global.Instance.Timer -= Time.deltaTime;
+                _timer.GetComponent<TMP_Text>().text = Global.Instance.Timer.ToString();
+                if(Global.Instance.Timer <= 0)
+                {
+                    LevelObject.Passed = true;
+                    _winnerPanel.SetActive(true);
+                }
                 return true;
             }
         }
-        Global.Timer = 3f;
+        Global.Instance.Timer = 3f;
         return false;
     }
 

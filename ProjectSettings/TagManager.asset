@@ -6,6 +6,8 @@ TagManager:
   tags:
   - Line
   - Timer
+  - WinnerPanel
+  - ButtonsLayout
   layers:
   - Default
   - TransparentFX
