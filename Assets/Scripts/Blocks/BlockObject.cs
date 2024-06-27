@@ -9,5 +9,4 @@ public class BlockObject : ScriptableObject
     public float Bounciness = 0;
     public float Weight = 1;
     public float Scale = 1;
-    public BlockForm Form = BlockForm.Square;
 }
