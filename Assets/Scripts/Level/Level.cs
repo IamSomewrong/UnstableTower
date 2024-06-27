@@ -7,7 +7,7 @@ using UnityEngine;
 public class Level : MonoBehaviour
 {
     [SerializeField]
-    private GameObject _block;
+    private List<GameObject> _forms;
 
     public LevelObject LevelObject;
 
@@ -59,7 +59,7 @@ public class Level : MonoBehaviour
     {
         foreach (var block in LevelObject.Blocks)
         {
-            GameObject spawned = Instantiate(_block, new Vector3(Random.Range(-2, 2), 5, 0), Quaternion.identity);
+            GameObject spawned = Instantiate(_forms[(int)block.Form], new Vector3(Random.Range(-2, 2), 5, 0), Quaternion.identity);
             spawned.GetComponent<Block>().UpdateObject(block);
             _blocks.Add(spawned);
             yield return new WaitForSeconds(1);

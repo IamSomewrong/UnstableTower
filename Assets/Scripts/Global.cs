@@ -1,14 +1,13 @@
-using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class Global : MonoBehaviour
 {
     public static Global Instance = null;
     public LevelObject LevelObject;
     public float Timer = 3f;
-    [SerializeField]
-    private List<LevelObject> _levels;
+    public List<LevelObject> Levels;
     [SerializeField]
     private GameObject _levelButtonSample;
     [SerializeField]
@@ -28,11 +27,22 @@ public class Global : MonoBehaviour
 
     private void Start()
     {
-        foreach (var level in _levels)
+        foreach (var level in Levels)
         {
             GameObject button = Instantiate(_levelButtonSample, _buttonsPanel.transform);
             button.GetComponentInChildren<LevelButton>().LevelObject = level;
         }
 
+    }
+
+    public void ChangeLevel(LevelObject level)
+    {
+        LevelObject = level;
+        SceneManager.LoadScene(1, LoadSceneMode.Single);
+    }
+
+    public void MoveToMenu()
+    {
+        SceneManager.LoadScene(0, LoadSceneMode.Single);
     }
 }

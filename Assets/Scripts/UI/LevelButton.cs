@@ -1,7 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.SceneManagement;
+
 using UnityEngine.UI;
 
 public class LevelButton : MonoBehaviour
@@ -15,7 +15,6 @@ public class LevelButton : MonoBehaviour
 
     public void ChangeScene()
     {
-        Global.Instance.LevelObject = LevelObject;
-        SceneManager.LoadScene(2, LoadSceneMode.Single);
+        Global.Instance.ChangeLevel(LevelObject);
     }
 }
