@@ -11,17 +11,27 @@ public class Level : MonoBehaviour
     private List<GameObject> _blocks = new List<GameObject>();
     private GameObject _timer;
     private GameObject _winnerPanel;
+    private GameObject _wind;
    
 
     private void Start()
     {
         LevelObject = Global.Instance.LevelObject;
+
         _timer = GameObject.FindGameObjectWithTag("Timer");
+
         _winnerPanel = GameObject.FindGameObjectWithTag("WinnerPanel");
         _winnerPanel.SetActive(false);
 
+        _wind = GameObject.FindGameObjectWithTag("Wind");
+        if(LevelObject.Wind == null )
+            _wind.SetActive(false);
+        else
+            _wind.GetComponent<Wind>().WindObject = LevelObject.Wind;
+
         Vector3[] positions = new Vector3[2] { new Vector3(-10, LevelObject.Height, 0), new Vector3(10, LevelObject.Height, 0) };
         GameObject.FindGameObjectWithTag("Line").GetComponent<LineRenderer>().SetPositions(positions);
+
         StartCoroutine(SpawnAndWait());
     }
 
@@ -35,8 +45,10 @@ public class Level : MonoBehaviour
     {
         foreach (var block in _blocks)
         {
-            if (block.transform.position.y + block.transform.localScale.y / 2 >= LevelObject.Height &&
-                Camera.main.ScreenToWorldPoint(Input.mousePosition).y < LevelObject.Height)
+
+            if (Camera.main.ScreenToWorldPoint(Input.mousePosition).y < LevelObject.Height && 
+                !Input.GetMouseButton(0) && 
+                block.transform.position.y + block.transform.localScale.y / 2 >= LevelObject.Height)
             {
                 Global.Instance.Timer -= Time.deltaTime;
                 _timer.GetComponent<TMP_Text>().text = Global.Instance.Timer.ToString();

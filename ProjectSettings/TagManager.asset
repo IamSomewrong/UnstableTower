@@ -8,6 +8,9 @@ TagManager:
   - Timer
   - WinnerPanel
   - ButtonsLayout
+  - Block
+  - Floor
+  - Wind
   layers:
   - Default
   - TransparentFX
