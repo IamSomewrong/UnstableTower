@@ -1536,7 +1536,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9a90b021526875249aa96dfe4258a766, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _block: {fileID: 8799421276956366188, guid: 0cc61b2eaf80cf746a109340e06d4502, type: 3}
   LevelObject: {fileID: 11400000, guid: 87c47d74fddcad6438e9c55a8cac625f, type: 2}
 --- !u!4 &2142480661
 Transform:

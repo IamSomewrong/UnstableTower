@@ -6,9 +6,6 @@ using UnityEngine;
 
 public class Level : MonoBehaviour
 {
-    [SerializeField]
-    private GameObject _block;
-
     public LevelObject LevelObject;
 
     private List<GameObject> _blocks = new List<GameObject>();
@@ -57,10 +54,13 @@ public class Level : MonoBehaviour
 
     IEnumerator SpawnAndWait()
     {
-        foreach (var block in LevelObject.Blocks)
+        for (var i = 0; i < LevelObject.BlockTypes.Count; i++)
         {
-            GameObject spawned = Instantiate(_block, new Vector3(Random.Range(-2, 2), 5, 0), Quaternion.identity);
-            spawned.GetComponent<Block>().UpdateObject(block);
+            var blockType = LevelObject.BlockTypes[i];
+            var block = LevelObject.Blocks[i];
+            
+            GameObject spawned = Instantiate(block, new Vector3(Random.Range(-2, 2), 5, 0), Quaternion.identity);
+            spawned.GetComponent<Block>().UpdateObject(blockType);
             _blocks.Add(spawned);
             yield return new WaitForSeconds(1);
         }
