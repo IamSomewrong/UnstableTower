@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
@@ -7,6 +8,8 @@ public class Block : MonoBehaviour
 {
     public BlockObject BlockObject;
 
+    public bool IsTouchingSomething;
+    
     private Rigidbody2D _rb;
     private Camera _camera;
 
@@ -45,6 +48,16 @@ public class Block : MonoBehaviour
         gameObject.transform.localScale *= BlockObject.Scale;
     }
 
+    // трогает какой-то другой блок или землю
+    public void OnCollisionStay2D(Collision2D other)
+    {
+        IsTouchingSomething = true;
+    }
+
+    public void OnCollisionExit2D(Collision2D other)
+    {
+        IsTouchingSomething = false;
+    }
 
     //    public bool IsStandingOnFloor() //????? ?? ????????, ?? ? ???????. ?? ????? ???????????.
     //    {

@@ -6,29 +6,33 @@ using UnityEngine;
 [RequireComponent(typeof(Rigidbody2D))]
 public class Draggable : MonoBehaviour
 {
-    TargetJoint2D _targetJoint;
+    private TargetJoint2D _targetJoint;
+
     void Start()
     {
         _targetJoint = GetComponent<TargetJoint2D>();
     }
 
-
     private void OnMouseDown()
     {
         Vector3 mousePosition = Camera.main.ScreenToWorldPoint(Input.mousePosition);
+        mousePosition.z = 0; 
+        
         _targetJoint.enabled = true;
-        _targetJoint.anchor = (Camera.main.ScreenToWorldPoint(Input.mousePosition) - transform.position) / transform.localScale.x;
+        Vector2 localAnchor = transform.InverseTransformPoint(mousePosition);
+        _targetJoint.anchor = localAnchor;
     }
 
     private void OnMouseDrag()
     {
         Vector3 mousePosition = Camera.main.ScreenToWorldPoint(Input.mousePosition);
+        mousePosition.z = 0;
+
         _targetJoint.target = mousePosition;
     }
 
-    private void OnMouseUp() 
-    { 
+    private void OnMouseUp()
+    {
         _targetJoint.enabled = false;
     }
-
 }

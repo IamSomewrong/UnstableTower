@@ -8,7 +8,7 @@ public class Level : MonoBehaviour
 {
     public LevelObject LevelObject;
 
-    private List<GameObject> _blocks = new List<GameObject>();
+    private List<Block> _blocks = new List<Block>();
     private GameObject _timer;
     private GameObject _winnerPanel;
     private GameObject _wind;
@@ -46,9 +46,9 @@ public class Level : MonoBehaviour
         foreach (var block in _blocks)
         {
 
-            if (Camera.main.ScreenToWorldPoint(Input.mousePosition).y < LevelObject.Height && 
-                !Input.GetMouseButton(0) && 
-                block.transform.position.y + block.transform.localScale.y / 2 >= LevelObject.Height)
+            if (!Input.GetMouseButton(0) && 
+                block.transform.position.y + block.transform.localScale.y / 2 >= LevelObject.Height &&
+                block.IsTouchingSomething)
             {
                 Global.Instance.Timer -= Time.deltaTime;
                 _timer.GetComponent<TMP_Text>().text = Global.Instance.Timer.ToString();
@@ -73,7 +73,7 @@ public class Level : MonoBehaviour
             
             GameObject spawned = Instantiate(block, new Vector3(Random.Range(-2, 2), 5, 0), Quaternion.identity);
             spawned.GetComponent<Block>().UpdateObject(blockType);
-            _blocks.Add(spawned);
+            _blocks.Add(spawned.GetComponent<Block>());
             yield return new WaitForSeconds(1);
         }
     }
